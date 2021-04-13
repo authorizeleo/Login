@@ -2,26 +2,34 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const exphdbars = require('express-handlebars')
+const MethodOverRide = require('method-override')
 const Todo = require('./models/todo')
 const app  = express()
 const port = 3000
 
+// 連線 mongodb
 mongoose.connect('mongodb://localhost/todo-list', {useNewUrlParser: true , useUnifiedTopology: true})
 
 const db = mongoose.connection
-
+// 如果錯誤
 db.on('error', () => {
     console.log('error notice')
 })
 
+// 如果成功
 db.once('open', () => {
     console.log('good connected')
 })
 
+// 為了 渲染 html 的 樣板引擎
 app.engine('hbs', exphdbars({defaultLayout: 'main', extname: '.hbs'}))
 app.set('view engine', 'hbs')
 
+// 為了取得 post  資料  的前置作業
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// 為了使用put 和 delete
+app.use(MethodOverRide('_method'))
 
 app.get('/', (req, res) => {
     Todo.find()
@@ -63,7 +71,7 @@ app.get('/edit/:id', (req, res) => {
         .catch((err) => console.error(err))
 })
 
-app.post('/edit/:id', (req, res) => {
+app.put('/edit/:id', (req, res) => {
     const id = req.params.id
     const { name, status } = req.body
     return Todo.findById(id)
@@ -79,7 +87,7 @@ app.post('/edit/:id', (req, res) => {
 })
 
 
-app.post('/del/:id', (req, res) => {
+app.delete('/del/:id', (req, res) => {
     const id = req.params.id
     return Todo.findById(id)
         .then((todo) => todo.remove())
