@@ -64,16 +64,26 @@ app.get('/edit/:id', (req, res) => {
 
 app.post('/edit/:id', (req, res) => {
     const id = req.params.id
-    const name = req.body.name
+    const { name, status } = req.body
     return Todo.findById(id)
         .then((todo)=>{
             todo.name = name
+            todo.status = status === 'on'
             return todo.save()
         })
         .then(()=> res.redirect(`/detail/${id}`))
         .catch((err)=>{
             console.log(err)
         })
+})
+
+
+app.post('/del/:id', (req, res) => {
+    const id = req.params.id
+    return Todo.findById(id)
+        .then((todo) => todo.remove())
+        .then(() => res.redirect('/') )
+        .catch((err) => console.error(err))
 })
 
 

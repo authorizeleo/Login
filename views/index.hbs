@@ -2,7 +2,11 @@
 <ul>
     {{# each todos}}
         <li>{{this.name}}</li>
+        <span>狀態<input type="checkbox"  name="status" {{#if todo.status}} checked {{/if}} disabled></span>
         <a href="/detail/{{this._id}}">Detail</a>
         <a href="/edit/{{this._id}}">Edit</a>
+        <form action="/del/{{this._id}}" method="POST" style="display: inline;">
+            <button type="submit">刪除資料</button>
+        </form>
     {{/ each}}
 </ul>

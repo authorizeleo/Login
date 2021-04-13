@@ -1,5 +1,6 @@
 <form action="/edit/{{todo._id}}" method="POST">
     <input type="text" value={{todo.name}} name=name>
+    <input type="checkbox"  name="status" {{#if todo.status}} checked {{/if}}>
     <button type='submit'> 修改</button> 
     <a href="/">Back</a>
 </form>
