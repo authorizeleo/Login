@@ -46,6 +46,37 @@ app.post('/input', (req, res)=>{
         .catch(() => console.log("error"))
 })
 
+app.get('/detail/:id', (req, res)=> {
+   const id = req.params.id
+   return Todo.findById(id)
+    .lean()
+    .then(( todo ) => res.render('detail', { todo }))
+    .catch((err) => console.error(err))
+})
+
+app.get('/edit/:id', (req, res) => {
+    const id = req.params.id
+    return Todo.findById(id)
+        .lean()
+        .then((todo) => res.render('edit', { todo }))
+        .catch((err) => console.error(err))
+})
+
+app.post('/edit/:id', (req, res) => {
+    const id = req.params.id
+    const name = req.body.name
+    return Todo.findById(id)
+        .then((todo)=>{
+            todo.name = name
+            return todo.save()
+        })
+        .then(()=> res.redirect(`/detail/${id}`))
+        .catch((err)=>{
+            console.log(err)
+        })
+})
+
+
 
 app.listen(port, ()=>{
     console.log('successful http://127.0.0.1:'+ port)

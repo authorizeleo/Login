@@ -2,5 +2,7 @@
 <ul>
     {{# each todos}}
         <li>{{this.name}}</li>
+        <a href="/detail/{{this._id}}">Detail</a>
+        <a href="/edit/{{this._id}}">Edit</a>
     {{/ each}}
 </ul>
