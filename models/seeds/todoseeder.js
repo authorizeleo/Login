@@ -11,8 +11,4 @@ db.on('error', () => {
 
 db.once('open', ()=>{
     console.log( 'open successful in todoseeder.js')
-
-    for(let i = 0 ; i < 6 ; i++ ){
-        todo.create({ name: `new${i}`})
-    } 
 })
