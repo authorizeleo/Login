@@ -1,12 +1,22 @@
-<a href="/todo/create/new">create</a>
-<ul>
+<ul class="list-group">
     {{# each todos}}
-        <li>{{this.name}}</li>
-        <span>狀態<input type="checkbox"  name="status" {{#if this.status}} checked {{/if}} disabled></span>
-        <a href="/todo/detail/{{this._id}}">Detail</a>
-        <a href="/todo/edit/{{this._id}}">Edit</a>
-        <form action="/todo/del/{{this._id}}?_method=Delete" method="POST" style="display: inline;">
-            <button type="submit">刪除資料</button>
-        </form>
+        <li class="list-group-item">
+            <div class='row'>
+                <div class='col-auto mr-auto'>
+                    <input style='vertical-align:middle;display:inline' type="checkbox"  name="status" {{#if this.status}} checked {{/if}} disabled>
+                    <h4 style='vertical-align:middle;display:inline'>{{this.name}}</h4>
+                </div>
+                <div class='col-auto'>
+                    <a class='btn btn-dark mr-3 ml-3' href="/todo/detail/{{this._id}}">Detail</a>
+                    <a class='btn btn-primary mr-3' href="/todo/edit/{{this._id}}">Edit</a>
+                    <form action="/todo/del/{{this._id}}?_method=Delete" method="POST" style="display: inline;">
+                        <button class='btn btn-danger' type="submit">刪除資料</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+        
+        
+        
     {{/ each}}
 </ul>
