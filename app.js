@@ -7,7 +7,7 @@ const routes = require('./routes')
 require('./config/mongodb')
 
 const app  = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 
 
@@ -25,6 +25,6 @@ app.use(routes)
 
 
 app.listen(port, ()=>{
-    console.log('successful http://127.0.0.1:'+ port)
+    console.log('successful http://localhost:'+ port)
 })
 

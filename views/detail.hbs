@@ -1,7 +1,13 @@
-<h2>{{ todo.name }}</h2>
-<h3>狀態<input type="checkbox"  name="status" {{#if todo.status}} checked {{/if}} disabled></h3>
-<a href="/todo/edit/{{todo._id}}">Edit</a>
-<form action="/todo/del/{{todo._id}}?_method=Delete" method="POST" style="display: inline;">
-    <button type="submit">刪除資料</button>
-</form>
-<a href="/">Back</a>
+<div class='row'>
+    <div class='col-auto mr-auto'>
+        <h2 style='display:inline;vertical-align:middle'>{{ todo.name }}</h2>
+        <input style='display:inline;vertical-align:middle' type="checkbox"  name="status" {{#if todo.status}} checked {{/if}} disabled>
+    </div>
+    <div class='col-auto'>
+        <a href="/todo/edit/{{todo._id}}" class='btn btn-secondary'>Edit</a>
+        <form action="/todo/del/{{todo._id}}?_method=Delete" method="POST" style="display: inline;">
+            <button class='btn btn-danger' type="submit">刪除資料</button>
+        </form>
+        <a class='btn btn-success' href="/">Back</a>
+    </div>
+</div>

@@ -1,6 +1,13 @@
-<form action="/todo/edit/{{todo._id}}?_method=PUT" method="POST">
-    <input type="text" value={{todo.name}} name=name>
-    <input type="checkbox"  name="status" {{#if todo.status}} checked {{/if}}>
-    <button type='submit'> 修改</button> 
-    <a href="/">Back</a>
+<form action="/todo/edit/{{todo._id}}?_method=PUT" method="POST" style="display: inline;">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <input type="checkbox"  name="status" {{#if todo.status}} checked {{/if}}>
+            </div>
+        </div>
+    <input class="form-control" type="text" value={{todo.name}} name=name>
+    <button class='btn btn-success' type='submit'> Save</button>
+    <a class='btn btn-primary' href="/">Back</a>
+    </div>
 </form>
+
