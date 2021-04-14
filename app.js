@@ -16,7 +16,7 @@ require('./config/mongodb')
 const app  = express()
 const port = process.env.PORT 
 
-
+app.use("/public", express.static('public')); 
 
 // 為了 渲染 html 的 樣板引擎
 app.engine('hbs', exphdbars({defaultLayout: 'main', extname: '.hbs'}))
