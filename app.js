@@ -4,14 +4,16 @@ const exphdbars = require('express-handlebars')
 const MethodOverRide = require('method-override')
 const session = require('express-session')
 
-
+const usePassport = require('./config/passport')
 const routes = require('./routes')
 require('./config/mongodb')
 
 const app  = express()
 const port = process.env.PORT || 3000
 
+// 呼叫passport 函式 並傳入 app
 
+usePassport(app)
 
 // 為了 渲染 html 的 樣板引擎
 app.engine('hbs', exphdbars({defaultLayout: 'main', extname: '.hbs'}))
