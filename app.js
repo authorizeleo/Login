@@ -36,7 +36,7 @@ app.use(session({
 // 呼叫passport 函式 並傳入 app
 usePassport(app)
 
-// 設定本地變數 res.local
+// 設定本地變數 res.locals
 app.use((req, res, next) => {
     // console.log(req.user) 
     // res.locals 是 Express.js 幫我們開的一條捷徑, 
