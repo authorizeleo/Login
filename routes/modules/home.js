@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
     const userId = req.user._id 
     Todo.find({ userId })
     .lean()
-    .sort({ name:'asc' })  // desc 由大到小
+    .sort({ _id:'asc' })  // desc 由大到小
     .then( todos => res.render('index' , { todos }))
     .catch( error => console.error(error))
 })

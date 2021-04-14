@@ -22,8 +22,8 @@ router.post('/input', (req, res)=>{
 
 router.get('/detail/:id', (req, res)=> {
     const userId = req.user._id
-    const id = req.params.id
-    return Todo.findOne({id, userId})
+    const _id = req.params.id
+    return Todo.findOne({ _id, userId })
         .lean()
         .then(( todo ) => res.render('detail', { todo }))
         .catch((err) => console.error(err))
@@ -31,8 +31,8 @@ router.get('/detail/:id', (req, res)=> {
 
 router.get('/edit/:id', (req, res) => {
     const userId = req.user._id
-    const id = req.params.id
-    return Todo.findByOne({ id, userId})
+    const _id = req.params.id
+    return Todo.findOne({ _id, userId})
         .lean()
         .then((todo) => res.render('edit', { todo }))
         .catch((err) => console.error(err))
@@ -40,15 +40,15 @@ router.get('/edit/:id', (req, res) => {
 
 router.put('/edit/:id', (req, res) => {
     const userId = req.user._id
-    const id = req.params.id
+    const _id = req.params.id
     const { name, status } = req.body
-    return Todo.findByOne({id , userId})
+    return Todo.findOne({ _id , userId})
         .then((todo)=>{
             todo.name = name
             todo.status = status === 'on'
             return todo.save()
         })
-        .then(()=> res.redirect(`/todo/detail/${id}`))
+        .then(()=> res.redirect(`/todo/detail/${_id}`))
         .catch((err)=>{
             console.log(err)
         })
@@ -57,8 +57,8 @@ router.put('/edit/:id', (req, res) => {
 
 router.delete('/del/:id', (req, res) => {
     const userId = req.user._id
-    const id = req.params.id
-    return Todo.findByOne({id, userId})
+    const _id = req.params.id
+    return Todo.findOne({ _id, userId})
         .then((todo) => todo.remove())
         .then(() => res.redirect('/') )
         .catch((err) => console.error(err))
