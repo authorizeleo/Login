@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo List</title>
+  <title>備忘錄</title>
   <link rel="stylesheet" href="https://bootswatch.com/4/cyborg/bootstrap.min.css">
 </head>
 <body class="bg-light">
   <header>
     <nav class="navbar navbar-dark bg-primary justify-content-between">
       <a class="navbar-brand" href="/">
-        {{#if isAuthenticated}}{{ user.name}}'s {{/if}} 備忘錄
+        {{#if isAuthenticated}}{{ user.name}} 的 {{/if}} 備忘錄
       </a>
       {{#if isAuthenticated}}
         <a href="/user/logout" class="btn btn-outline-light">Logout</a>
