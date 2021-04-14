@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const exphdbars = require('express-handlebars')
 const MethodOverRide = require('method-override')
 const session = require('express-session')
+const flash = require('connect-flash')
 
 const usePassport = require('./config/passport')
 const routes = require('./routes')
@@ -27,7 +28,7 @@ app.use(MethodOverRide('_method'))
 app.use(session({
     secret:'ThisIsMySecret',
     // 當設定為 true 時，會在每一次與使用者互動後，強制把 session 更新到 session store 裡。
-    resave: true, 
+    resave: false, 
     /// 強制將未初始化的 session 存回 session store。
     //  未初始化表示這個 session 是新的而且沒有被修改過，例如未登入的使用者的 session。
     saveUninitialized:true   
@@ -35,6 +36,9 @@ app.use(session({
 
 // 呼叫passport 函式 並傳入 app
 usePassport(app)
+
+// 掛載 套件
+app.use(flash()) 
 
 // 設定本地變數 res.locals
 app.use((req, res, next) => {
@@ -44,6 +48,8 @@ app.use((req, res, next) => {
     res.locals.isAuthenticated = req.isAuthenticated()
     res.locals.user = req.user 
     // req.user 是從 反序列化的時候 , 取出的 user資訊 , 之後會放在req.user裡 以供後續使用
+    res.locals.success_msg = req.flash('success_msg')
+    res.locals.warning_msg = req.flash('warning_msg')
     next()
 })
 app.use(routes)

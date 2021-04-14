@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const MONGODB_URL = process.env.MONGODB_URL || 'mongodb://localhost/todo-list'
 
 // 連線 mongodb
-mongoose.connect(MONGODB_URL, {useNewUrlParser: true , useUnifiedTopology: true})
+mongoose.connect(MONGODB_URL, { useNewUrlParser: true , useUnifiedTopology: true, useCreateIndex: true })
 
 const db = mongoose.connection
 // 如果錯誤

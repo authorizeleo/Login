@@ -8,37 +8,41 @@ router.get('/create/new', (req, res) => {
 })
 
 router.post('/input', (req, res)=>{
+    const userId = req.user._id
     const name = req.body.name
     // const newname = new Todo({name})
 
     // return newname.save()
     // .then(() => res.redirect('/'))
     // .catch((error)=> console.log('error'))
-    return Todo.create({name})
+    return Todo.create({name , userId })
         .then(() => res.redirect('/'))
         .catch(() => console.log("error"))
 })
 
 router.get('/detail/:id', (req, res)=> {
-   const id = req.params.id
-   return Todo.findById(id)
-    .lean()
-    .then(( todo ) => res.render('detail', { todo }))
-    .catch((err) => console.error(err))
+    const userId = req.user._id
+    const id = req.params.id
+    return Todo.findOne({id, userId})
+        .lean()
+        .then(( todo ) => res.render('detail', { todo }))
+        .catch((err) => console.error(err))
 })
 
 router.get('/edit/:id', (req, res) => {
+    const userId = req.user._id
     const id = req.params.id
-    return Todo.findById(id)
+    return Todo.findByOne({ id, userId})
         .lean()
         .then((todo) => res.render('edit', { todo }))
         .catch((err) => console.error(err))
 })
 
 router.put('/edit/:id', (req, res) => {
+    const userId = req.user._id
     const id = req.params.id
     const { name, status } = req.body
-    return Todo.findById(id)
+    return Todo.findByOne({id , userId})
         .then((todo)=>{
             todo.name = name
             todo.status = status === 'on'
@@ -52,8 +56,9 @@ router.put('/edit/:id', (req, res) => {
 
 
 router.delete('/del/:id', (req, res) => {
+    const userId = req.user._id
     const id = req.params.id
-    return Todo.findById(id)
+    return Todo.findByOne({id, userId})
         .then((todo) => todo.remove())
         .then(() => res.redirect('/') )
         .catch((err) => console.error(err))
