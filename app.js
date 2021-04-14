@@ -5,12 +5,16 @@ const MethodOverRide = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
 
+if (process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+
 const usePassport = require('./config/passport')
 const routes = require('./routes')
 require('./config/mongodb')
 
 const app  = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT 
 
 
 
@@ -26,7 +30,7 @@ app.use(MethodOverRide('_method'))
 
 // 為了 幫助 http的無狀態性 所以使用 session 來協助
 app.use(session({
-    secret:'ThisIsMySecret',
+    secret: process.env.SESSION_SECRET,
     // 當設定為 true 時，會在每一次與使用者互動後，強制把 session 更新到 session store 裡。
     resave: false, 
     /// 強制將未初始化的 session 存回 session store。
