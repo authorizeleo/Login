@@ -9,6 +9,6 @@ const login = require('./modules/login')
 
 router.use('/', home)
 router.use('/todo', tofunction)
-router.use('/login', login)
+router.use('/user', login)
 
 module.exports = router
